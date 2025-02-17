@@ -4,34 +4,21 @@
 CREATE TABLE IF NOT EXISTS `#__whiteleaf_rooms` (
     `id` int(11) NOT NULL AUTO_INCREMENT,
     `title` varchar(255) NOT NULL,
-    `alias` varchar(255) NOT NULL,
-    `description` text NOT NULL,
-    `room_type` varchar(50) NOT NULL,
-    `capacity` int(11) NOT NULL DEFAULT 2,
+    `description` text,
     `price` decimal(10,2) NOT NULL,
-    `base_price` decimal(10,2) NOT NULL,
-    `weekend_price` decimal(10,2) NOT NULL,
-    `special_price` decimal(10,2) DEFAULT NULL,
-    `amenities` text,
-    `room_size` varchar(50),
-    `bed_type` varchar(100),
-    `main_image` varchar(255),
-    `gallery_images` text,
-    `max_adults` int(11) NOT NULL DEFAULT 2,
-    `max_children` int(11) NOT NULL DEFAULT 2,
-    `extra_bed_available` tinyint(1) NOT NULL DEFAULT 0,
-    `extra_bed_price` decimal(10,2) DEFAULT NULL,
-    `room_number` varchar(50),
-    `floor` varchar(50),
-    `view_type` varchar(100),
-    `published` tinyint(1) NOT NULL DEFAULT 1,
-    `ordering` int(11) NOT NULL DEFAULT 0,
+    `capacity` int(11) NOT NULL,
+    `published` tinyint(1) NOT NULL DEFAULT '1',
     `created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    `created_by` int(11) NOT NULL,
-    `modified` datetime DEFAULT NULL,
-    `modified_by` int(11) DEFAULT NULL,
+    `modified` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 DEFAULT COLLATE=utf8mb4_unicode_ci;
+
+-- Insert sample data
+INSERT INTO `#__whiteleaf_rooms` (`title`, `description`, `price`, `capacity`, `published`) VALUES
+('Standard Room', 'Comfortable room with basic amenities', 100.00, 2, 1),
+('Deluxe Room', 'Spacious room with premium amenities', 150.00, 2, 1),
+('Suite', 'Luxury suite with separate living area', 250.00, 4, 1),
+('Family Room', 'Large room ideal for families', 200.00, 4, 1);
 
 -- Table for room availability
 CREATE TABLE IF NOT EXISTS `#__whiteleaf_room_availability` (

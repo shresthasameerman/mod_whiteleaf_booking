@@ -5,21 +5,22 @@ use Joomla\CMS\Factory;
 
 class ModWhiteleafBookingHelper
 {
-    public function getRooms()
+    public static function getRooms()
     {
         $db = Factory::getDbo();
-        $query = $db->getQuery(true)
-            ->select('*')
-            ->from($db->quoteName('#__whiteleaf_rooms'))
-            ->where($db->quoteName('published') . ' = 1');
+        $query = $db->getQuery(true);
+        
+        $query->select('id, title, price')
+              ->from('#__whiteleaf_rooms')
+              ->where('published = 1')
+              ->order('title ASC');
+              
         $db->setQuery($query);
-
+        
         try {
             return $db->loadObjectList();
         } catch (Exception $e) {
-            // Log error message and return an empty array
-            Factory::getApplication()->enqueueMessage('Error fetching rooms: ' . $e->getMessage(), 'error');
-            return [];
+            return array();
         }
     }
 }
