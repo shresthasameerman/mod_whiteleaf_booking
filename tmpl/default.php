@@ -61,7 +61,7 @@ HTMLHelper::_('bootstrap.framework');
         <button type="submit" class="btn btn-primary">Check Availability</button>
         
         <input type="hidden" name="option" value="com_whiteleafbooking">
-        <input type="hidden" name="task" value="booking.submit">
+        <input type="hidden" name="task" value="booking.checkAvailability">
         <?php echo HTMLHelper::_('form.token'); ?>
     </form>
 </div>

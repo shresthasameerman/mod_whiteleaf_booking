@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<extension type="module" version="3.0" client="site" method="upgrade">
+<extension type="module" version="5.0" client="site" method="upgrade">
     <name>White Leaf Resort Booking Module</name>
-    <author>Your Name</author>
+    <author>shresthasameerman</author>
     <version>1.0.0</version>
     <description>Room booking module for White Leaf Resort</description>
     <files>

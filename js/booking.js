@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Update checkout minimum date when checkin changes
     checkIn.addEventListener('change', function() {
         checkOut.min = checkIn.value;
-        if(checkOut.value && checkOut.value < checkIn.value) {
+        if (checkOut.value && checkOut.value < checkIn.value) {
             checkOut.value = checkIn.value;
         }
     });
@@ -18,6 +18,20 @@ document.addEventListener('DOMContentLoaded', function() {
     form.addEventListener('submit', function(e) {
         e.preventDefault();
         // Add form validation and submission logic here
-        console.log('Form submitted');
+        const formData = new FormData(form);
+        fetch('index.php?option=com_whiteleafbooking&task=booking.checkAvailability', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                // Redirect to confirmation page
+                window.location.href = 'index.php?option=com_whiteleafbooking&view=confirmation';
+            } else {
+                alert('No rooms available for the selected dates.');
+            }
+        })
+        .catch(error => console.error('Error:', error));
     });
 });

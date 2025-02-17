@@ -7,7 +7,7 @@ use Joomla\CMS\Router\Route;
 
 class WhiteleafBookingController extends BaseController
 {
-    public function submit()
+    public function checkAvailability()
     {
         // Get the input
         $input = Factory::getApplication()->input;
@@ -16,12 +16,14 @@ class WhiteleafBookingController extends BaseController
             'check_out' => 'string',
             'room_type' => 'int',
             'guests' => 'int',
+            'guest_name' => 'string',
+            'guest_email' => 'string',
             'option' => 'string',
             'task' => 'string'
         ));
 
         // Validate the data
-        if (empty($data['check_in']) || empty($data['check_out']) || empty($data['room_type']) || empty($data['guests'])) {
+        if (empty($data['check_in']) || empty($data['check_out']) || empty($data['room_type']) || empty($data['guests']) || empty($data['guest_name']) || empty($data['guest_email'])) {
             Factory::getApplication()->enqueueMessage('All fields are required', 'error');
             $this->setRedirect(Route::_('index.php?option=com_whiteleafbooking', false));
             return false;
@@ -46,27 +48,8 @@ class WhiteleafBookingController extends BaseController
             return false;
         }
 
-        // Save the booking
-        $booking = (object) [
-            'room_id' => $data['room_type'],
-            'check_in' => $data['check_in'],
-            'check_out' => $data['check_out'],
-            'guest_name' => $input->getString('guest_name'),
-            'guest_email' => $input->getString('guest_email'),
-            'num_adults' => $data['guests'],
-            'total_price' => 0, // Calculate total price based on room price and guests
-            'booking_status' => 'pending',
-            'created' => Factory::getDate()->toSql(),
-        ];
-
-        if (!$db->insertObject('#__whiteleaf_bookings', $booking)) {
-            Factory::getApplication()->enqueueMessage('Error saving booking', 'error');
-            $this->setRedirect(Route::_('index.php?option=com_whiteleafbooking', false));
-            return false;
-        }
-
-        Factory::getApplication()->enqueueMessage('Booking successfully created', 'message');
-        $this->setRedirect(Route::_('index.php?option=com_whiteleafbooking', false));
+        // Redirect to confirmation page
+        $this->setRedirect(Route::_('index.php?option=com_whiteleafbooking&view=confirmation&check_in=' . $data['check_in'] . '&check_out=' . $data['check_out'] . '&room_type=' . $data['room_type'] . '&guests=' . $data['guests'] . '&guest_name=' . $data['guest_name'] . '&guest_email=' . $data['guest_email'], false));
         return true;
     }
 }
