@@ -1,11 +1,8 @@
-
 <?php
 defined('_JEXEC') or die;
 
 use Joomla\CMS\Helper\ModuleHelper;
-use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Factory;
-use Joomla\CMS\Language\Text;
 
 // Load CSS and JavaScript
 $wa = Factory::getApplication()->getDocument()->getWebAssetManager();

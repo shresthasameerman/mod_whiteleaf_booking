@@ -1,10 +1,7 @@
-
 <?php
 defined('_JEXEC') or die;
 
 use Joomla\CMS\HTML\HTMLHelper;
-use Joomla\CMS\Language\Text;
-use Joomla\CMS\Factory;
 
 // Load jQuery and Bootstrap if needed
 HTMLHelper::_('jquery.framework');
@@ -49,6 +46,16 @@ HTMLHelper::_('bootstrap.framework');
                 <option value="3">3 Guests</option>
                 <option value="4">4 Guests</option>
             </select>
+        </div>
+        
+        <div class="form-group">
+            <label for="guest_name">Guest Name:</label>
+            <input type="text" id="guest_name" name="guest_name" class="form-control" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="guest_email">Guest Email:</label>
+            <input type="email" id="guest_email" name="guest_email" class="form-control" required>
         </div>
         
         <button type="submit" class="btn btn-primary">Check Availability</button>
